@@ -6,10 +6,10 @@ const TEST_ALISMS_ACCESS_KEY_SECRET = Deno.env.get(
   'TEST_ALISMS_ACCESS_KEY_SECRET',
 )!;
 const TEST_PHONENUM = Deno.env.get('TEST_PHONENUM')!;
-const TEST_CHECK_PHONENUM = Deno.env.get('TEST_CHECK_PHONENUM')!;
-const TEST_CHECK_DATE = Deno.env.get('TEST_CHECK_DATE')!;
-const TEST_SIGN_NAME = Deno.env.get('TEST_SIGN_NAME')!;
-const TEST_TPL_CODE = Deno.env.get('TEST_TPL_CODE')!;
+const TEST_CHECK_PHONENUM = Deno.env.get('TEST_ALISMS_CHECK_PHONENUM')!;
+const TEST_CHECK_DATE = Deno.env.get('TEST_ALISMS_CHECK_DATE')!;
+const TEST_SIGN_NAME = Deno.env.get('TEST_ALISMS_SIGN_NAME')!;
+const TEST_TPL_CODE = Deno.env.get('TEST_ALISMS_TPL_CODE')!;
 
 /**
  * 测试发送短信
