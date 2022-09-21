@@ -1,0 +1,12 @@
+{
+  "deno.enable": true,
+  "deno.unstable": true,
+  "deno.config": "./deno.json",
+  "deno.lint": true,
+  "deno.codeLens.test": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "editor.formatOnSave": true
+}
