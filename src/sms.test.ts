@@ -27,7 +27,9 @@ Deno.test('testSendSMS', async () => {
   const tplParam = '{"customer": "tester"}';
   const res = await sms.sendSMS(phoneNumbers, signName, tplCode, tplParam);
 
-  console.log(res, res.code, res.message);
+  if (Deno.env.get('CI') !== 'true') {
+    console.log(res, res.code, res.message);
+  }
   assertEquals(res.code, 'OK');
 });
 
@@ -52,7 +54,9 @@ Deno.test('testQuerySendDetails', async () => {
     currentPage,
   );
 
-  console.log(res, res.code, res.message);
+  if (Deno.env.get('CI') !== 'true') {
+    console.log(res, res.code, res.message);
+  }
   assertEquals(res.code, 'OK');
 });
 
@@ -106,8 +110,6 @@ Deno.test('testSignature', async () => {
   const sign =
     'GET&%2F&AccessKeyId%3Dtestid%26Action%3DDescribeDedicatedHosts%26Format%3DXML%26SignatureMethod%3DHMAC-SHA1%26SignatureNonce%3D3ee8c1b8-xxxx-xxxx-xxxx-xxxxxxxxx%26SignatureVersion%3D1.0%26Timestamp%3D2016-02-23T12%253A46%253A24Z%26Version%3D2014-05-26';
   const res = await sms.hmac(sign, AccessKeySecret);
-
-  console.log(res);
 
   assertEquals(res, 'rARsF+BIg8pZ4e0ln6Z96lBMDms=');
 });
