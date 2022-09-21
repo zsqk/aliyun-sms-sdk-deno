@@ -10,7 +10,8 @@
  * 短信服务错误码列表：{@link https://help.aliyun.com/document_detail/101345.html}
  */
 
-import { hmac } from 'https://deno.land/x/hmac@v2.0.1/mod.ts';
+import { encode } from 'https://deno.land/std@0.143.0/encoding/base64.ts';
+import { hmac } from 'https://deno.land/x/somefn@v0.18.0/js/hash.ts?s=hmac';
 
 /**
  * 发送短信响应类型
@@ -140,7 +141,7 @@ export class AliSMS {
     //  3. 计算签名值
     const paramsStr = this.specParams(params);
     const strToSign = this.stringToSign(method, paramsStr);
-    const signature = this.hmac(strToSign, this.accessKeySecret);
+    const signature = await this.hmac(strToSign, this.accessKeySecret);
 
     const url = `${this.endPoint}/?${paramsStr}&Signature=${
       encodeURIComponent(
@@ -210,7 +211,7 @@ export class AliSMS {
     //  3. 计算签名值
     const paramsStr = this.specParams(params);
     const strToSign = this.stringToSign(method, paramsStr);
-    const signature = this.hmac(strToSign, this.accessKeySecret);
+    const signature = await this.hmac(strToSign, this.accessKeySecret);
 
     const url = `${this.endPoint}/?${paramsStr}&Signature=${
       encodeURIComponent(
@@ -288,15 +289,10 @@ export class AliSMS {
    *
    * @author zk <zk@go0356.com>
    */
-  hmac(sign: string, secret: string): string {
+  async hmac(sign: string, secret: string): Promise<string> {
     const secretSuffix = '&';
-    return hmac(
-      'sha1',
-      secret + secretSuffix,
-      sign,
-      'utf8',
-      'base64',
-    ).toString();
+    const u = await hmac({ hash: 'SHA-1', s: secret + secretSuffix }, sign);
+    return encode(u);
   }
 
   /**
