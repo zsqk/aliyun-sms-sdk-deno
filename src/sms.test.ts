@@ -1,8 +1,15 @@
 import { assertEquals } from 'https://deno.land/std@0.148.0/testing/asserts.ts';
 import { AliSMS } from './sms.ts';
 
-const ALISMS_ACCESS_KEY_ID = Deno.env.get('ALISMS_ACCESS_KEY_ID')!;
-const ALISMS_ACCESS_KEY_SECRET = Deno.env.get('ALISMS_ACCESS_KEY_SECRET')!;
+const TEST_ALISMS_ACCESS_KEY_ID = Deno.env.get('TEST_ALISMS_ACCESS_KEY_ID')!;
+const TEST_ALISMS_ACCESS_KEY_SECRET = Deno.env.get(
+  'TEST_ALISMS_ACCESS_KEY_SECRET',
+)!;
+const TEST_PHONENUM = Deno.env.get('TEST_PHONENUM')!;
+const TEST_CHECK_PHONENUM = Deno.env.get('TEST_CHECK_PHONENUM')!;
+const TEST_CHECK_DATE = Deno.env.get('TEST_CHECK_DATE')!;
+const TEST_SIGN_NAME = Deno.env.get('TEST_SIGN_NAME')!;
+const TEST_TPL_CODE = Deno.env.get('TEST_TPL_CODE')!;
 
 /**
  * 测试发送短信
@@ -10,14 +17,14 @@ const ALISMS_ACCESS_KEY_SECRET = Deno.env.get('ALISMS_ACCESS_KEY_SECRET')!;
  * @author zk <zk@go0356.com>
  */
 Deno.test('testSendSMS', async () => {
-  const accessKeyID = ALISMS_ACCESS_KEY_ID;
-  const accessKeySecret = ALISMS_ACCESS_KEY_SECRET;
+  const accessKeyID = TEST_ALISMS_ACCESS_KEY_ID;
+  const accessKeySecret = TEST_ALISMS_ACCESS_KEY_SECRET;
   const sms = new AliSMS(accessKeyID, accessKeySecret);
 
-  const phoneNumbers: string[] = ['15135654070'];
-  const signName = '高远手机';
-  const tplCode = 'SMS_8170249';
-  const tplParam = '{"customer": "kouler"}';
+  const phoneNumbers: string[] = [TEST_PHONENUM];
+  const signName = TEST_SIGN_NAME;
+  const tplCode = TEST_TPL_CODE;
+  const tplParam = '{"customer": "tester"}';
   const res = await sms.sendSMS(phoneNumbers, signName, tplCode, tplParam);
 
   console.log(res, res.code, res.message);
@@ -30,12 +37,12 @@ Deno.test('testSendSMS', async () => {
  * @author zk <zk@go0356.com>
  */
 Deno.test('testQuerySendDetails', async () => {
-  const accessKeyID = ALISMS_ACCESS_KEY_ID;
-  const accessKeySecret = ALISMS_ACCESS_KEY_SECRET;
+  const accessKeyID = TEST_ALISMS_ACCESS_KEY_ID;
+  const accessKeySecret = TEST_ALISMS_ACCESS_KEY_SECRET;
   const sms = new AliSMS(accessKeyID, accessKeySecret);
 
-  const phoneNumber = '15135654070';
-  const sendDate = '20220812';
+  const phoneNumber = TEST_CHECK_PHONENUM;
+  const sendDate = TEST_CHECK_DATE;
   const pageSize = 1;
   const currentPage = 1;
   const res = await sms.querySendDetails(
